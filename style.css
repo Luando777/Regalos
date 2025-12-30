@@ -1,0 +1,244 @@
+:root {
+    --neon-pink: #ff00ff;
+    --neon-cyan: #00ffff;
+    --neon-purple: #bc13fe;
+    --bg-dark: #050011;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none; /* Hide default cursor for custom heart effect */
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Rajdhani', sans-serif;
+    overflow: hidden; /* Prevent scrolling */
+    color: white;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- Galaxy Background --- */
+#galaxy-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+/* --- Typography & Neon --- */
+.neon-text {
+    font-family: 'Sacramento', cursive;
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px var(--neon-cyan),
+        0 0 82px var(--neon-cyan),
+        0 0 92px var(--neon-cyan),
+        0 0 102px var(--neon-cyan),
+        0 0 151px var(--neon-cyan);
+    font-size: 3rem;
+    pointer-events: none;
+}
+
+.neon-text-pink {
+    font-family: 'Sacramento', cursive;
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px var(--neon-pink),
+        0 0 82px var(--neon-pink),
+        0 0 92px var(--neon-pink),
+        0 0 102px var(--neon-pink),
+        0 0 151px var(--neon-pink);
+}
+
+/* --- Cursor Effect --- */
+.heart-cursor {
+    position: fixed;
+    font-size: 20px;
+    color: var(--neon-pink);
+    pointer-events: none;
+    z-index: 9999;
+    animation: fadeUp 1s ease-out forwards;
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(0.5);
+    }
+}
+
+/* --- Phase Containers --- */
+.phase-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 1s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none; /* Hide fully */
+}
+
+.active {
+    opacity: 1;
+    display: flex; /* Restore flex */
+}
+
+/* --- Intro: Constellation --- */
+#constellation-area {
+    position: relative;
+    width: 80vw;
+    height: 60vh;
+}
+
+.constellation-star {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff, 0 0 20px var(--neon-cyan);
+    cursor: none; /* Keep custom cursor feeling */
+    transition: transform 0.3s;
+}
+
+.constellation-star:hover {
+    transform: scale(1.5);
+}
+
+.constellation-star.connected {
+    background-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-purple);
+}
+
+.star-line {
+    position: absolute;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform-origin: 0 50%;
+    box-shadow: 0 0 5px #fff;
+    z-index: -1;
+    animation: drawLine 0.5s linear forwards;
+}
+
+@keyframes drawLine {
+    from { width: 0; }
+    to { width: 100%; } /* This will be set dynamically via JS usually, but here for reference */
+}
+
+/* --- Main: Orbit System --- */
+.sun {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 50px var(--neon-pink);
+    animation: pulseSun 3s infinite ease-in-out;
+}
+
+@keyframes pulseSun {
+    0%, 100% { box-shadow: 0 0 50px var(--neon-pink); transform: scale(1); }
+    50% { box-shadow: 0 0 80px var(--neon-pink), 0 0 100px var(--neon-purple); transform: scale(1.05); }
+}
+
+.main-title {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+/* Orbit Path (Visual Only) */
+.orbit-path {
+    position: absolute;
+    border: 1px dashed rgba(0, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%); /* Centered via JS logic mostly */
+}
+
+.orbital-item {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--neon-cyan);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: black;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.orbital-item:hover {
+    transform: scale(1.5);
+    background: white;
+    box-shadow: 0 0 25px white, 0 0 45px var(--neon-pink);
+    z-index: 100;
+}
+
+.message-display {
+    position: absolute;
+    bottom: 10%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    max-width: 80%;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#close-memory {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-family: 'Rajdhani', sans-serif;
+    transition: 0.3s;
+}
+
+#close-memory:hover {
+    background: var(--neon-cyan);
+    color: black;
+    box-shadow: 0 0 15px var(--neon-cyan);
+}

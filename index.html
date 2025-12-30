@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti, Mi Universo</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Universe -->
+    <canvas id="galaxy-canvas"></canvas>
+
+    <!-- Phase 1: Constellation Intro -->
+    <div id="intro-container" class="phase-container active">
+        <h1 class="neon-text fade-in-text">Conecta las estrellas...</h1>
+        <div id="constellation-area">
+            <!-- Stars will be injected here by JS -->
+        </div>
+        <div id="big-bang-trigger" class="hidden"></div>
+    </div>
+
+    <!-- Phase 2: Orbiting Memories -->
+    <div id="orbit-container" class="phase-container hidden">
+        <div class="sun">
+            <h1 class="main-title neon-text-pink">Nosotros</h1>
+        </div>
+        
+        <!-- Orbits will be injected here -->
+        <div class="orbit-system">
+            <!-- Dynamic orbital elements -->
+        </div>
+        
+        <div class="message-display hidden">
+            <h2 id="memory-title">Un Recuerdo</h2>
+            <p id="memory-text">Texto del recuerdo aquí...</p>
+            <button id="close-memory">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Background Music (Optional, muted initially for browser policy) -->
+    <!-- <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio> -->
+
+    <script src="script.js"></script>
+</body>
+</html>
